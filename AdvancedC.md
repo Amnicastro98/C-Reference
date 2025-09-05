@@ -13,22 +13,25 @@
 #include <stdio.h>
 
 // Generic max macro using _Generic (C11 feature for type selection)
+// This allows compile-time type selection similar to C++ templates
 #define max(a, b) _Generic((a), \
     int: max_int, \
     double: max_double \
-)(a, b)  // Select function based on type
+)(a, b)  // Select function based on type of first argument
 
+// Implementation for int type
 int max_int(int a, int b) {
-    return (a > b) ? a : b;
+    return (a > b) ? a : b;  // Return larger value
 }
 
+// Implementation for double type
 double max_double(double a, double b) {
-    return (a > b) ? a : b;
+    return (a > b) ? a : b;  // Return larger value
 }
 
-// Usage - compiler selects appropriate function
-int x = max(3, 5);        // Calls max_int
-double y = max(3.14, 2.71); // Calls max_double
+// Usage - compiler selects appropriate function at compile time
+int x = max(3, 5);        // Calls max_int, x = 5
+double y = max(3.14, 2.71); // Calls max_double, y = 3.14
 ```
 
 ## Manual Smart Pointer Management
@@ -37,39 +40,43 @@ double y = max(3.14, 2.71); // Calls max_double
 #include <stdio.h>
 
 // Reference counted pointer (manual shared_ptr equivalent)
+// This struct manages memory automatically using reference counting
 typedef struct {
-    int* ptr;       // The actual data
-    int* ref_count; // Reference counter
+    int* ptr;       // The actual data pointer
+    int* ref_count; // Pointer to reference counter
 } SharedPtr;
 
+// Create a new SharedPtr with initial reference count of 1
 SharedPtr SharedPtr_create(int* p) {
     SharedPtr sp;
-    sp.ptr = p;
-    sp.ref_count = (int*)malloc(sizeof(int));
+    sp.ptr = p;  // Store the data pointer
+    sp.ref_count = (int*)malloc(sizeof(int));  // Allocate counter
     *sp.ref_count = 1;  // Start with 1 reference
     return sp;
 }
 
+// Increment reference count when another pointer references the data
 void SharedPtr_addRef(SharedPtr* sp) {
     (*sp->ref_count)++;  // Increment reference count
 }
 
+// Decrement reference count and free memory when count reaches 0
 void SharedPtr_release(SharedPtr* sp) {
     (*sp->ref_count)--;  // Decrement reference count
     if (*sp->ref_count == 0) {
         free(sp->ptr);      // Free data when last reference
         free(sp->ref_count); // Free counter
-        sp->ptr = NULL;
+        sp->ptr = NULL;     // Null pointers to prevent use-after-free
         sp->ref_count = NULL;
     }
 }
 
-// Usage - manual memory management
-SharedPtr sp1 = SharedPtr_create(malloc(sizeof(int)));
+// Usage - manual memory management with reference counting
+SharedPtr sp1 = SharedPtr_create(malloc(sizeof(int)));  // Create shared pointer
 *sp1.ptr = 42;           // Use the data
-SharedPtr_addRef(&sp1);  // Add another reference
-SharedPtr_release(&sp1); // Release first reference
-SharedPtr_release(&sp1); // Release second - frees memory
+SharedPtr_addRef(&sp1);  // Add another reference (count = 2)
+SharedPtr_release(&sp1); // Release first reference (count = 1)
+SharedPtr_release(&sp1); // Release second reference (count = 0, frees memory)
 ```
 
 ## Custom Containers
