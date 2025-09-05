@@ -15,63 +15,63 @@
 #include <string.h>
 #include <stdbool.h>
 
-// Basic Struct Structure
+// Basic Struct Structure (equivalent to a class in OOP)
 typedef struct {
-    char brand[50];           // Member variables
+    char brand[50];           // Member variables (data)
     int year;
     bool isRunning;
 } Car;
 
-// Constructor function
+// Constructor function (creates and initializes a Car)
 Car* Car_create(const char* b, int y) {
-    Car* car = (Car*)malloc(sizeof(Car));
+    Car* car = (Car*)malloc(sizeof(Car)); // Allocate memory
     if (car) {
-        strcpy(car->brand, b);
+        strcpy(car->brand, b);  // Initialize members
         car->year = y;
         car->isRunning = false;
     }
     return car;
 }
 
-// Member function (method)
-void Car_startEngine(Car* this) {
+// Member function (method) - equivalent to a class method
+void Car_startEngine(Car* this) {  // 'this' pointer like in C++
     this->isRunning = true;
     printf("Engine started!\n");
 }
 
-// Getter method
+// Getter method - provides read-only access
 const char* Car_getBrand(const Car* this) {
     return this->brand;
 }
 
-// Setter method
+// Setter method - provides controlled write access
 void Car_setYear(Car* this, int y) {
     if (y > 1900) {          // Data validation
         this->year = y;
     }
 }
 
-// Destructor function
+// Destructor function - cleans up resources
 void Car_destroy(Car* this) {
     printf("Car object destroyed\n");
-    free(this);
+    free(this);  // Free allocated memory
 }
 
 // Creating and Using Structs
 Car* myCar = Car_create("Toyota", 2020);  // Create object
 Car_startEngine(myCar);                   // Call method
 const char* brand = Car_getBrand(myCar);  // Use getter
-Car_destroy(myCar);                       // Cleanup
+Car_destroy(myCar);                       // Cleanup (important!)
 ```
 
 ## Composition
 ```c
-// Base Struct
+// Base Struct (like a base class)
 typedef struct {
     char name[50];
 } Animal;
 
-// Constructor
+// Constructor for base
 Animal* Animal_create(const char* n) {
     Animal* animal = (Animal*)malloc(sizeof(Animal));
     if (animal) {
@@ -80,28 +80,28 @@ Animal* Animal_create(const char* n) {
     return animal;
 }
 
-// Virtual function equivalent (function pointer)
+// Function pointer type for virtual functions
 typedef void (*MakeSoundFunc)(const void*);
 
-// Derived Struct with composition
+// Derived Struct using composition (instead of inheritance)
 typedef struct {
-    Animal base;             // Composition instead of inheritance
+    Animal base;             // Embed base struct
     char breed[50];
-    MakeSoundFunc makeSound; // Function pointer for polymorphism
+    MakeSoundFunc makeSound; // Function pointer for behavior
 } Dog;
 
-// Constructor
+// Constructor for derived
 Dog* Dog_create(const char* n, const char* b) {
     Dog* dog = (Dog*)malloc(sizeof(Dog));
     if (dog) {
-        strcpy(dog->base.name, n);
+        strcpy(dog->base.name, n);  // Initialize base
         strcpy(dog->breed, b);
-        dog->makeSound = Dog_makeSound; // Assign function
+        dog->makeSound = Dog_makeSound; // Set behavior
     }
     return dog;
 }
 
-// Override base method
+// Override method (assign different function)
 void Dog_makeSound(const void* this) {
     const Dog* dog = (const Dog*)this;
     printf("Woof!\n");
@@ -112,20 +112,20 @@ void Dog_fetch(const Dog* this) {
     printf("%s is fetching!\n", this->base.name);
 }
 
-// Using Composition
+// Using Composition (manual inheritance)
 Dog* myDog = Dog_create("Rex", "Labrador");
-myDog->makeSound(myDog);     // Calls Dog's version
-Dog_fetch(myDog);            // Dog-specific method
-free(myDog);                 // Cleanup
+myDog->makeSound(myDog);     // Polymorphic call
+Dog_fetch(myDog);            // Specific method
+free(myDog);                 // Manual cleanup
 ```
 
 ## Function Pointers
 ```c
-// Function Pointer Example
-typedef double (*AreaFunc)(const void*);
+// Function Pointer Example (equivalent to virtual functions)
+typedef double (*AreaFunc)(const void*);  // Function signature
 
 typedef struct {
-    AreaFunc area;
+    AreaFunc area;  // Function pointer member
 } Shape;
 
 // Circle implementation
@@ -138,7 +138,7 @@ typedef struct {
 Circle* Circle_create(double r) {
     Circle* circle = (Circle*)malloc(sizeof(Circle));
     if (circle) {
-        circle->base.area = Circle_area;
+        circle->base.area = Circle_area;  // Assign function
         circle->radius = r;
     }
     return circle;
@@ -152,7 +152,7 @@ double Circle_area(const void* this) {
 
 // Usage
 Circle* circle = Circle_create(5);
-double area = circle->base.area(circle); // Polymorphic call
+double area = circle->base.area(circle); // Call via pointer
 free(circle);
 ```
 
