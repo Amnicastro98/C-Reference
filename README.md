@@ -38,6 +38,10 @@ A comprehensive guide for C programming fundamentals, procedural concepts, and a
 - Networking
 - Standard Library Functions
 
+### 5. C_standard_library_reference.md
+- General use libraries
+- Commonly used libraries in embedded systems
+
 ## Key Features
 - Modern C standards (C99/C11/C18)
 - Procedural programming with OOP concepts
@@ -66,3 +70,4 @@ Contributions are welcome! Please feel free to submit a Pull Request.
 
 ## License
 This project is licensed under the MIT License - see the LICENSE file for details.
+
