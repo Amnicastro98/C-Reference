@@ -10,10 +10,10 @@
 
 ## Structs and Functions
 ```c
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <stdbool.h>
+#include <stdio.h> // Standard Input/Output
+#include <stdlib.h> // General purpose utility functions
+#include <string.h> // Funtions for manipulating C strings and memory blocks
+#include <stdbool.h> // Bool type and constants
 
 // Basic Struct Structure (equivalent to a class in OOP)
 typedef struct {
@@ -326,3 +326,4 @@ BankAccount_deposit(account, 1000);     // Safe transaction
 double balance = BankAccount_getBalance(account); // Safe access
 BankAccount_destroy(account);           // Cleanup
 ```
+
