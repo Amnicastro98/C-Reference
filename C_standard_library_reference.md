@@ -80,3 +80,68 @@ Introduced in **C99** to give C a real boolean type.
 - **`false`** → Boolean constant equal to `0`.  
 
 (No functions here — just definitions for booleans.)
+
+
+## Common Embedded/Controls-Specific Libraries
+
+### `<stdint.h>`
+- **Purpose**: Fixed-width integer types.
+- **Popular Types**:
+  - `uint8_t`, `int8_t`: 8-bit unsigned/signed integers.
+  - `uint16_t`, `int16_t`: 16-bit unsigned/signed integers.
+  - `uint32_t`, `int32_t`: 32-bit unsigned/signed integers.
+  - `uint64_t`, `int64_t`: 64-bit unsigned/signed integers.
+
+### `<math.h>`
+- **Purpose**: Mathematical functions.
+- **Popular Functions**:
+  - `sin()`, `cos()`, `tan()`: Trigonometric functions.
+  - `sqrt()`: Square root.
+  - `pow()`: Raise to a power.
+  - `fabs()`: Floating-point absolute value.
+
+### `<time.h>`
+- **Purpose**: Time/date functions (sometimes limited in embedded environments).
+- **Popular Functions**:
+  - `time()`: Current time.
+  - `clock()`: Processor clock time.
+  - `difftime()`: Time difference.
+
+### `<ctype.h>`
+- **Purpose**: Character classification/conversion.
+- **Popular Functions**:
+  - `isalpha()`, `isdigit()`: Check character type.
+  - `toupper()`, `tolower()`: Convert case.
+
+### `<assert.h>`
+- **Purpose**: Debugging and validation.
+- **Popular Macro**:
+  - `assert(expression)`: Program stops if expression is false.
+
+### `<stddef.h>`
+- **Purpose**: Defines common types and macros.
+- **Popular Elements**:
+  - `size_t`: Unsigned type for sizes.
+  - `NULL`: Null pointer constant.
+  - `offsetof()`: Offset of a member in a struct.
+
+### `<limits.h>` and `<float.h>`
+- **Purpose**: Numerical limits for integer and floating-point types.
+- **Popular Constants**:
+  - `INT_MAX`, `INT_MIN`: Maximum/minimum int.
+  - `CHAR_BIT`: Bits in a `char`.
+  - `FLT_MAX`, `DBL_MAX`: Max float/double.
+
+---
+
+## Embedded Hardware-Specific (Vendor-Dependent)
+
+> These are **not standard headers**, but common in embedded environments. They are usually provided by the chip/board manufacturer.
+
+- `<avr/io.h>` → Registers and peripherals for AVR microcontrollers (Arduino, Atmel).  
+- `<avr/interrupt.h>` → Interrupt handling macros/functions.  
+- `<stm32f4xx_hal.h>` (or similar) → STM32 HAL (Hardware Abstraction Layer).  
+- `<msp430.h>` → TI MSP430 microcontrollers.  
+- `<freertos/FreeRTOS.h>` and `<task.h>` → Real-time operating system support.  
+
+---
