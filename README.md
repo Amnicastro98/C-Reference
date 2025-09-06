@@ -1,6 +1,6 @@
-# C Quick Reference Guide
+# C Reference Guide
 
-A comprehensive guide for C programming fundamentals, procedural concepts, and advanced features for embedded systems development.
+A comprehensive guide for C programming fundamentals, procedural concepts, and advanced features for embedded systems development. For best results, I recommend viewing each document in the order listed below to build understanding progressively.
 
 ## Guide Structure
 
@@ -70,4 +70,5 @@ Contributions are welcome! Please feel free to submit a Pull Request.
 
 ## License
 This project is licensed under the MIT License - see the LICENSE file for details.
+
 
